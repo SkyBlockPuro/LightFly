@@ -5,6 +5,7 @@ import lf.jaime.commands.MainCommand;
 import lf.jaime.commands.TempFly;
 import lf.jaime.files.ConfigManager;
 import lf.jaime.files.MessagesManager;
+import lf.jaime.listeners.PlayerHandler;
 import lf.jaime.placeholders.LightFlyPlaceholderExpansion;
 import lf.jaime.utils.MessageUtils;
 import lf.jaime.utils.PlayerTimeManager;
@@ -21,8 +22,9 @@ public class LightFly extends JavaPlugin {
     public void onEnable() {
         configManager = new ConfigManager(this);
         messagesManager = new MessagesManager(this, configManager.getLang() + ".yml");
-        playerTimeManager = new PlayerTimeManager(this);
+        playerTimeManager = new PlayerTimeManager();
         registerCommands();
+        registerListeners();
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new LightFlyPlaceholderExpansion(this).register();
@@ -40,6 +42,10 @@ public class LightFly extends JavaPlugin {
         Objects.requireNonNull(getCommand("fly")).setExecutor(new Fly(this));
         Objects.requireNonNull(getCommand("lightfly")).setExecutor(new MainCommand(this));
         Objects.requireNonNull(getCommand("tempfly")).setExecutor(new TempFly(this));
+    }
+
+    private void registerListeners() {
+        getServer().getPluginManager().registerEvents(new PlayerHandler(this), this);
     }
 
     public MessagesManager getMessagesManager() {

@@ -12,7 +12,7 @@ public class MessageUtils {
         Pattern pattern = Pattern.compile("#[a-fA-F0-9]{6}");
         Matcher matcher = pattern.matcher(text);
 
-        if (text.length() > 0) {
+        if (!text.isEmpty()) {
             while (matcher.find()) {
                 String color = text.substring(matcher.start(), matcher.end());
                 try {

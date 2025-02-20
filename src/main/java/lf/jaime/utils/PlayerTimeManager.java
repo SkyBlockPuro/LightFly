@@ -1,6 +1,5 @@
 package lf.jaime.utils;
 
-import lf.jaime.LightFly;
 import org.bukkit.entity.Player;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -10,11 +9,9 @@ import java.util.concurrent.TimeUnit;
 
 public class PlayerTimeManager {
     private final ConcurrentHashMap<Player, Integer> playerTimers = new ConcurrentHashMap<>();
-    private final LightFly plugin;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-    public PlayerTimeManager(LightFly plugin) {
-        this.plugin = plugin;
+    public PlayerTimeManager() {
         startTimerTask();
     }
 
@@ -40,10 +37,6 @@ public class PlayerTimeManager {
         playerTimers.put(player, seconds);
     }
 
-    public void removePlayer(Player player) {
-        playerTimers.remove(player);
-    }
-
     public int getRemainingTime(Player player) {
         if (playerTimers.containsKey(player)) {
             return playerTimers.get(player);
@@ -53,5 +46,9 @@ public class PlayerTimeManager {
 
     public void shutdown() {
         scheduler.shutdown();
+    }
+
+    public ConcurrentHashMap<Player, Integer> getPlayerTimers() {
+        return playerTimers;
     }
 }
