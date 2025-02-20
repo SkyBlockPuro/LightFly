@@ -1,8 +1,6 @@
 package lf.jaime.utils;
 
 import lf.jaime.LightFly;
-import lf.jaime.files.ConfigManager;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,35 +22,36 @@ public class PlayerTimeManager {
         scheduler.scheduleAtFixedRate(() -> {
             for (Player player : playerTimers.keySet()) {
                 int timeLeft = playerTimers.get(player);
-                try{
+                try {
                     playerTimers.put(player, timeLeft - 1);
                     player.setAllowFlight(true);
                     if (timeLeft <= 1) {
                         playerTimers.remove(player);
                         player.setAllowFlight(false);
                     }
-                } catch (NullPointerException e){
+                } catch (NullPointerException e) {
                     playerTimers.remove(player);
-                };
+                }
             }
         }, 0, 1, TimeUnit.SECONDS);
     }
 
-    public void addPlayer(Player player, int seconds){
+    public void addPlayer(Player player, int seconds) {
         playerTimers.put(player, seconds);
     }
-    public void removePlayer(Player player){
+
+    public void removePlayer(Player player) {
         playerTimers.remove(player);
     }
 
-    public int getRemainingTime(Player player){
-        if(playerTimers.containsKey(player)){
+    public int getRemainingTime(Player player) {
+        if (playerTimers.containsKey(player)) {
             return playerTimers.get(player);
         }
         return 0;
     }
 
-    public void shutdown(){
+    public void shutdown() {
         scheduler.shutdown();
     }
 }

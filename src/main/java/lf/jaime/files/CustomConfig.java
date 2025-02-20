@@ -1,4 +1,5 @@
 package lf.jaime.files;
+
 import lf.jaime.LightFly;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -8,33 +9,33 @@ import java.io.File;
 import java.io.IOException;
 
 public class CustomConfig {
-    private LightFly plugin;
-    private String fileName;
+    private final LightFly plugin;
+    private final String fileName;
     private FileConfiguration fileConfiguration = null;
     private File file = null;
-    private String folderName;
+    private final String folderName;
 
-    public CustomConfig(String fileName, String folderName, LightFly plugin){
+    public CustomConfig(String fileName, String folderName, LightFly plugin) {
         this.fileName = fileName;
         this.folderName = folderName;
         this.plugin = plugin;
     }
 
-    public String getPath(){
+    public String getPath() {
         return this.fileName;
     }
 
-    public void registerConfig(){
-        if(folderName != null){
-            file = new File(plugin.getDataFolder() +File.separator + folderName,fileName);
-        }else{
+    public void registerConfig() {
+        if (folderName != null) {
+            file = new File(plugin.getDataFolder() + File.separator + folderName, fileName);
+        } else {
             file = new File(plugin.getDataFolder(), fileName);
         }
 
-        if(!file.exists()){
-            if(folderName != null){
-                plugin.saveResource(folderName+File.separator+fileName, false);
-            }else{
+        if (!file.exists()) {
+            if (folderName != null) {
+                plugin.saveResource(folderName + File.separator + fileName, false);
+            } else {
                 plugin.saveResource(fileName, false);
             }
         }
@@ -48,6 +49,7 @@ public class CustomConfig {
             e.printStackTrace();
         }
     }
+
     public void saveConfig() {
         try {
             fileConfiguration.save(file);
@@ -65,16 +67,16 @@ public class CustomConfig {
 
     public boolean reloadConfig() {
         if (fileConfiguration == null) {
-            if(folderName != null){
-                file = new File(plugin.getDataFolder() +File.separator + folderName, fileName);
-            }else{
+            if (folderName != null) {
+                file = new File(plugin.getDataFolder() + File.separator + folderName, fileName);
+            } else {
                 file = new File(plugin.getDataFolder(), fileName);
             }
 
         }
         fileConfiguration = YamlConfiguration.loadConfiguration(file);
 
-        if(file != null) {
+        if (file != null) {
             YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(file);
             fileConfiguration.setDefaults(defConfig);
         }

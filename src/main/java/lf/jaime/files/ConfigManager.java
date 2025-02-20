@@ -11,12 +11,12 @@ public class ConfigManager {
     private String lang;
 
 
-    public ConfigManager(LightFly plugin){
+    public ConfigManager(LightFly plugin) {
         configFile = new CustomConfig("config.yml", null, plugin);
         LoadConfig();
     }
 
-    public void LoadConfig(){
+    public void LoadConfig() {
         configFile.registerConfig();
         FileConfiguration fileConfiguration = configFile.getConfig();
         lang = fileConfiguration.getString("lang");

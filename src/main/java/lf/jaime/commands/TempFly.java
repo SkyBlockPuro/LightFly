@@ -13,12 +13,13 @@ import org.bukkit.entity.Player;
 
 public class TempFly implements CommandExecutor {
     private final LightFly plugin;
-    public TempFly(LightFly plugin){
+
+    public TempFly(LightFly plugin) {
         this.plugin = plugin;
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String alias, String[] args){
+    public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
         MessagesManager messages = plugin.getMessagesManager();
 
         if (!sender.hasPermission("lf.admin") &&
@@ -28,19 +29,19 @@ public class TempFly implements CommandExecutor {
             sender.sendMessage(MessageUtils.getMessage(messages.getPrefix() + messages.getNoPermission()));
             return true;
         }
-        if(args.length < 2){
+        if (args.length < 2) {
             sender.sendMessage(MessageUtils.getMessage(messages.getPrefix() + messages.getBadUsageTempfly()));
             return true;
         }
         Player player = Bukkit.getPlayer(args[0]);
-        if(player == null){
+        if (player == null) {
             sender.sendMessage(MessageUtils.getMessage(messages.getPrefix() + messages.getUnknownPlayer()
                     .replace("%player%", args[0])));
             return true;
         }
 
         boolean preventFlyInCreative = plugin.getConfigManager().isPreventInGamemode();
-        if(player.getGameMode() == GameMode.CREATIVE && preventFlyInCreative){
+        if (player.getGameMode() == GameMode.CREATIVE && preventFlyInCreative) {
             player.sendMessage(MessageUtils.getMessage(messages.getPrefix() + messages.getGamemodeNotAllowed()));
             return true;
         }
@@ -56,7 +57,7 @@ public class TempFly implements CommandExecutor {
         sender.sendMessage(MessageUtils.getMessage(messages.getPrefix() + messages.getTempFlySuccess()
                 .replace("%player%", player.getName()).replace("%time%", String.valueOf(seconds))));
 
-        if(plugin.getConfigManager().isSendTempFlyMessage()){
+        if (plugin.getConfigManager().isSendTempFlyMessage()) {
             player.sendMessage(MessageUtils.getMessage(messages.getPrefix() + messages.getTempFlyMessage()
                     .replace("%time%", String.valueOf(seconds))));
         }

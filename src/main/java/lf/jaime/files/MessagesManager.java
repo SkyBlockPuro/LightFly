@@ -7,12 +7,6 @@ import java.util.List;
 
 public class MessagesManager {
     private final CustomConfig langFile;
-
-    public MessagesManager(LightFly plugin, String lang){
-        langFile = new CustomConfig(lang, "lang", plugin);
-        loadMessages();
-    }
-
     private String prefix;
     private String noPermission;
     private String playerOnly;
@@ -31,8 +25,12 @@ public class MessagesManager {
     private String invalidNumber;
     private String tempFlySuccess;
     private String tempFlyMessage;
+    public MessagesManager(LightFly plugin, String lang) {
+        langFile = new CustomConfig(lang, "lang", plugin);
+        loadMessages();
+    }
 
-    public void loadMessages(){
+    public void loadMessages() {
         langFile.registerConfig();
         FileConfiguration messages = langFile.getConfig();
         prefix = messages.getString("prefix");
@@ -71,7 +69,7 @@ public class MessagesManager {
         return playerOnly;
     }
 
-    public String getBadUsageFly(){
+    public String getBadUsageFly() {
         return badUsageFly;
     }
 
@@ -103,11 +101,11 @@ public class MessagesManager {
         return helpAdmin;
     }
 
-    public String getReload(){
+    public String getReload() {
         return reload;
     }
 
-    public String getGamemodeNotAllowed(){
+    public String getGamemodeNotAllowed() {
         return gamemodeNotAllowed;
     }
 

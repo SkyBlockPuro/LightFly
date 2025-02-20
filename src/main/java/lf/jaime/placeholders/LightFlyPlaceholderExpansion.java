@@ -33,12 +33,12 @@ public class LightFlyPlaceholderExpansion extends PlaceholderExpansion {
     }
 
     @Override
-    public boolean canRegister(){
+    public boolean canRegister() {
         return true;
     }
 
     @Override
-    public boolean persist(){
+    public boolean persist() {
         return true;
     }
 
@@ -48,37 +48,42 @@ public class LightFlyPlaceholderExpansion extends PlaceholderExpansion {
             return null;
         }
 
-        if(params.equals("tempfly_time")){
+        if (params.equals("tempfly_time")) {
             PlayerTimeManager playerTimeManager = plugin.getPlayerTimeManager();
             return String.valueOf(playerTimeManager.getRemainingTime(player));
         }
 
-        if (params.startsWith("tempfly_time_")){
+        if (params.startsWith("tempfly_time_")) {
             String playerName = params.substring("tempfly_time_".length());
             PlayerTimeManager playerTimeManager = plugin.getPlayerTimeManager();
             Player targetPlayer = Bukkit.getPlayer(playerName);
-            if(targetPlayer == null){return null;}
+            if (targetPlayer == null) {
+                return null;
+            }
             return String.valueOf(playerTimeManager.getRemainingTime(targetPlayer));
         }
-        if (params.equals("isflying")){
+        if (params.equals("isflying")) {
             return String.valueOf(player.isFlying());
         }
-        if (params.startsWith("isflying_")){
+        if (params.startsWith("isflying_")) {
             String playerName = params.substring("isflying_".length());
             Player targetPlayer = Bukkit.getPlayer(playerName);
-            if(targetPlayer == null){return null;}
+            if (targetPlayer == null) {
+                return null;
+            }
             return String.valueOf(targetPlayer.isFlying());
         }
-        if (params.equals("flymode")){
+        if (params.equals("flymode")) {
             return String.valueOf(player.getAllowFlight());
         }
-        if (params.startsWith("flymode_")){
+        if (params.startsWith("flymode_")) {
             String playerName = params.substring("flymode_".length());
             Player targetPlayer = Bukkit.getPlayer(playerName);
-            if(targetPlayer == null){return null;}
+            if (targetPlayer == null) {
+                return null;
+            }
             return String.valueOf(targetPlayer.getAllowFlight());
         }
-
 
 
         return null;

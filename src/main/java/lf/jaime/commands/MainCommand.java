@@ -9,36 +9,37 @@ import org.bukkit.command.CommandSender;
 
 public class MainCommand implements CommandExecutor {
     private final LightFly plugin;
-    public MainCommand(LightFly plugin){
+
+    public MainCommand(LightFly plugin) {
         this.plugin = plugin;
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String alias, String[] args){
+    public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
         MessagesManager messages = plugin.getMessagesManager();
-        if(!sender.hasPermission("lf.admin")){
+        if (!sender.hasPermission("lf.admin")) {
             sender.sendMessage(MessageUtils.getMessage(messages.getPrefix() + messages.getNoPermission()));
             return true;
         }
-        if(args.length == 0){
+        if (args.length == 0) {
             sendHelpMessage(sender);
             return true;
         }
-        if(args[0].equalsIgnoreCase("reload")){
+        if (args[0].equalsIgnoreCase("reload")) {
             messages.loadMessages();
             sender.sendMessage(MessageUtils.getMessage(messages.getPrefix() + messages.getReload()));
             return true;
         }
-        if(args[0].equalsIgnoreCase("version")){
+        if (args[0].equalsIgnoreCase("version")) {
             String version = plugin.getDescription().getVersion();
             sender.sendMessage(MessageUtils.getMessage(messages.getPrefix() + version));
         }
         return true;
     }
 
-    private void sendHelpMessage(CommandSender sender){
+    private void sendHelpMessage(CommandSender sender) {
         MessagesManager messages = plugin.getMessagesManager();
-        for(String m: messages.getHelpAdmin()){
+        for (String m : messages.getHelpAdmin()) {
             sender.sendMessage(MessageUtils.getMessage(m));
         }
     }
