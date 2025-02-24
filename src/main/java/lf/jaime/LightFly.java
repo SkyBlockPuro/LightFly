@@ -18,10 +18,12 @@ public class LightFly extends JavaPlugin {
     private MessagesManager messagesManager;
     private ConfigManager configManager;
     private PlayerTimeManager playerTimeManager;
+    private static LightFly instance;
 
     public void onEnable() {
-        configManager = new ConfigManager(this);
-        messagesManager = new MessagesManager(this, configManager.getLang() + ".yml");
+        instance = this;
+        configManager = new ConfigManager(instance);
+        messagesManager = new MessagesManager(instance, configManager.getLang() + ".yml");
         playerTimeManager = new PlayerTimeManager();
         registerCommands();
         registerListeners();
@@ -37,6 +39,9 @@ public class LightFly extends JavaPlugin {
         playerTimeManager.shutdown();
     }
 
+    public static LightFly getInstance() {
+        return instance;
+    }
 
     private void registerCommands() {
         Objects.requireNonNull(getCommand("fly")).setExecutor(new Fly(this));

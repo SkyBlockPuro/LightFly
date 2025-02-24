@@ -50,7 +50,7 @@ public class LightFlyPlaceholderExpansion extends PlaceholderExpansion {
 
         if (params.equals("tempfly_time")) {
             PlayerTimeManager playerTimeManager = plugin.getPlayerTimeManager();
-            return String.valueOf(playerTimeManager.getRemainingTime(player));
+            return String.valueOf(playerTimeManager.getRemainingTime(player.getName()));
         }
 
         if (params.startsWith("tempfly_time_")) {
@@ -60,7 +60,7 @@ public class LightFlyPlaceholderExpansion extends PlaceholderExpansion {
             if (targetPlayer == null) {
                 return null;
             }
-            return String.valueOf(playerTimeManager.getRemainingTime(targetPlayer));
+            return String.valueOf(playerTimeManager.getRemainingTime(targetPlayer.getName()));
         }
         if (params.equals("isflying")) {
             return String.valueOf(player.isFlying());

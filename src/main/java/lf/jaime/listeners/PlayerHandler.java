@@ -18,7 +18,7 @@ public class PlayerHandler implements Listener {
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
-        if (plugin.getPlayerTimeManager().getRemainingTime(player) > 0) {
+        if (plugin.getPlayerTimeManager().getRemainingTime(player.getName()) > 0) {
             player.setAllowFlight(true);
             return;
         }
@@ -32,7 +32,7 @@ public class PlayerHandler implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
-        if (plugin.getPlayerTimeManager().getRemainingTime(player) > 0) {
+        if (plugin.getPlayerTimeManager().getRemainingTime(player.getName()) > 0) {
             player.setAllowFlight(true);
             return;
         }
