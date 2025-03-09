@@ -69,9 +69,7 @@ public class Fly implements CommandExecutor {
             return true;
         }
         if (args.length == 1) {
-            if (!sender.hasPermission("lf.admin") &&
-                    !sender.hasPermission("lf.fly.*") &&
-                    !sender.hasPermission("lf.fly")) {
+            if (!sender.hasPermission("lf.admin")) {
 
                 sender.sendMessage(getMessage(prefix + messages.getNoPermission()));
                 return true;
@@ -94,9 +92,7 @@ public class Fly implements CommandExecutor {
         }
 
         if (args.length == 2) {
-            if (!sender.hasPermission("lf.admin") &&
-                    !sender.hasPermission("lf.fly.*") &&
-                    !sender.hasPermission("lf.fly")) {
+            if (!sender.hasPermission("lf.admin")) {
 
                 sender.sendMessage(getMessage(prefix + messages.getNoPermission()));
                 return true;
